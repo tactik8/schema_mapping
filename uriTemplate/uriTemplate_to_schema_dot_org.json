@@ -1,0 +1,122 @@
+{
+
+    "@type": "SchemaConversionCatalog",
+    "@id": "uriTemplate_to_schema_dot_org.json",
+    "itemListElement": [
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "required",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "valueRequired",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "default",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "defaultValue",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "name",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "valueName",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "readonly",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "readonlyValue",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "multiple",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "multiplevalue",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "minlength",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "valueMinLength",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "pattern",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "valuePattern",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "min",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "minValue",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "max",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "maxValue",
+            }
+        },
+        {
+            "@type": "SchemaConversionItem",
+            "from": {
+                "@type": "PropertyValue",
+                "propertyID": "step",
+            },
+            "to": {
+                "@type": "PropertyValue",
+                "propertyID": "stepValue",
+            }
+        }
+        
+    ]
+
+}
+
+}
+
