@@ -2,6 +2,7 @@
 
     "@type": "SchemaConversionCatalog",
     "@id": "uriTemplate_to_schema_dot_org.json",
+    "description": "Schema for the conversion of uriTemplate to schema.org propertyValueSpecification",
     "itemListElement": [
         {
             "@type": "SchemaConversionItem",
