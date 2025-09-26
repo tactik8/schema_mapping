@@ -1,0 +1,25 @@
+{
+            "@context": {
+                "@vocab": "https://schema.org",
+                "metadata": "metadata"
+            },
+            "@type": "BlogPosting",
+            "@id": "{{guid.rendered}}#blogposting",
+            "headline": "{{title.rendered}}",
+            "articleBody": "{{content.rendered}}",
+            "description": "",
+            "datePublished": "{{date_gmt}}",
+            "dateModified": "{{modified_gmt}}",
+            "author": {
+              "@type": "Person",
+              "metadata:sourceID": "{{author.href}}"
+            },
+            "url": "{{link}}",
+            "dataFeedElement": {
+                "@type": "DataFeedItem",
+                "@id": "{{id}}",
+                "dateCreated": "{{date_gmt}}",
+                "dateModified": "{{modified_gmt}}",
+                "item": "{{i}}"
+            }
+        }
