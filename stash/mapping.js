@@ -13,6 +13,19 @@ function mapStashSceneToSchema(scene) {
     return `PT${h > 0 ? h + 'H' : ''}${m > 0 ? m + 'M' : ''}${s}S`;
   };
 
+  const primaryFile = scene.files && scene.files[0];
+
+  // Helper to convert bytes to human-readable string (e.g., 1.2 GB)
+  const formatBytes = (bytes) => {
+    if (!bytes) return undefined;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`;
+  };
+
+  
+
+  
   return {
     "@context": "https://schema.org",
     "@type": "VideoObject",
@@ -23,6 +36,18 @@ function mapStashSceneToSchema(scene) {
     "duration": formatDuration(scene.file?.duration),
     "contentUrl": scene.paths?.stream || "",
     "keywords": scene.tags?.map(t => t.name).join(", "),
+
+    // Technical File Details
+    "associatedMedia": scene.files?.map(file => ({
+      "@type": "MediaObject",
+      "contentUrl": `file://${file.path}`,
+      "contentSize": formatBytes(file.size),
+      "encodingFormat": "video/mp4", // Or detect via extension
+      "bitrate": file.bit_rate ? `${(file.bit_rate / 1000).toFixed(0)} kbps` : undefined,
+      "width": file.width,
+      "height": file.height
+    })),
+
     
     // Mapping the Studio
     "productionCompany": scene.studio ? {
@@ -48,6 +73,7 @@ function mapStashSceneToSchema(scene) {
     } : undefined
   };
 }
+
 
 /**
  * Converts a Schema.org VideoObject (JSON-LD) back to a Stash Scene input
