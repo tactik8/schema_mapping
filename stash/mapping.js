@@ -26,7 +26,7 @@ function mapStashSceneToSchema(scene) {
   
 
   
-  return {
+  let ld = {
     "@context": "https://schema.org",
     "@type": "VideoObject",
     "name": scene.title || "Untitled Scene",
@@ -48,7 +48,8 @@ function mapStashSceneToSchema(scene) {
       "height": file.height
     })),
 
-    
+   
+  
     // Mapping the Studio
     "productionCompany": scene.studio ? {
       "@type": "Organization",
@@ -71,8 +72,78 @@ function mapStashSceneToSchema(scene) {
       "bestRating": "5",
       "worstRating": "1"
     } : undefined
+
+
+
+    
   };
+  
+     // 1. Add Static Screenshot
+  if (scene.paths?.screenshot) {
+    ld.thumbnail = ld?.thumbnail || []
+    ld.thumbnail = Array.isArray(ld.thumbnail) ? ld.thumbnail : [ld.thumbnail]
+    ld.thumbnail.push({
+      "@type": "ImageObject",
+      "name": "Static Screenshot",
+      "contentUrl": scene.paths.screenshot
+    });
+  }
+
+  // 2. Add Animated Preview (GIF/WebP)
+  if (scene.paths?.preview) {
+    ld.thumbnail = ld?.thumbnail || []
+    ld.thumbnail = Array.isArray(ld.thumbnail) ? ld.thumbnail : [ld.thumbnail]
+    ld.thumbnail.push({
+      "@type": "ImageObject",
+      "name": "Animated Preview",
+      "contentUrl": scene.paths.preview,
+      "encodingFormat": "image/webp" // Stash usually uses WebP for previews
+    });
+  }
+
+  // 3. Add Sprite Sheet
+  if (scene.paths?.sprite) {
+    ld.associatedMedia = ld?.associatedMedia || []
+    ld.associatedMedia = Array.isArray(ld.associatedMedia) ? ld.associatedMedia : [ld.associatedMedia]
+    ld.associatedMedia.push({
+       
+      "@type": "ImageObject",
+      "name": "Scene Sprite Sheet",
+      "description": "Scrubbing sprite sheet for player seek bar",
+      "contentUrl": scene.paths.sprite,
+      // Include the VTT file as a related resource if available
+      "mainEntityOfPage": scene.paths.vtt || undefined 
+    });
+  }
+
+  // 4. Map the Animated WebP/GIF
+  if (scene.paths?.preview) {
+    ld.thumbnail = ld?.thumbnail || []
+    ld.thumbnail = Array.isArray(ld.thumbnail) ? ld.thumbnail : [ld.thumbnail]
+    ld.thumbnail.push({
+      "@type": "ImageObject",
+      "name": "Animated Preview",
+      "contentUrl": scene.paths.preview,
+      "encodingFormat": "image/webp", // Stash default
+      "potentialAction": "Autoplay" 
+    });
+  }
+
+  // 5. Map a Video Preview (if your Stash setup generates mp4 previews)
+  if (scene.paths?.preview_video) {
+    ld.subjectOf = ld?.subjectOf || []
+    ld.subjectOf = Array.isArray(ld.subjectOf) ? ld.subjectOf : [ld.subjectOf]
+    ld.subjectOf.push({
+      "@type": "VideoObject",
+      "name": "Scene Preview Clip",
+      "contentUrl": scene.paths.preview_video,
+      "description": "Short teaser of the full scene"
+    });
+  }
+
+  return ld
 }
+
 
 
 /**
